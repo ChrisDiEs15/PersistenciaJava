@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package persistencia;
+import java.io.IOException;
 
 /**
  *
@@ -10,14 +11,21 @@ package persistencia;
  */
 public class Persistencia {
 
-      public static void main(String[] args) {
-        // Definir manualmente los archivos de origen y destino
-        String archivoOrigen = "/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_origen.txt";
-        String archivoDestino = "/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_destino.txt";
+     public static void main(String[] args) {
+        Leer lector = new Leer();
+        
+        try {
+            String contenido = lector.leer("/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_origen.txt");
+            int totalPalabras = lector.contarPalabras("/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_destino.txt");
+            char caracterBuscado = 'a';  // Cambia este valor al carácter que deseas buscar
+            int totalCaracteres = lector.contarCaracter("/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_origen.txt", caracterBuscado);
 
-        // Instanciar la clase Clonar y realizar la clonación
-        Clonar clonar = new Clonar();
-        clonar.clonar(archivoOrigen, archivoDestino);
+            System.out.println("Contenido del archivo:");
+            System.out.println(contenido);
+            System.out.println("Total de palabras: " + totalPalabras);
+            System.out.println("Apariciones del carácter '" + caracterBuscado + "': " + totalCaracteres);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
-    
 }
