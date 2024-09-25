@@ -10,15 +10,16 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Leer {
+
     public String leer(String origen) throws IOException {
         File file = new File(origen);
-        
+
         if (!file.exists()) {
             throw new IOException("El archivo no existe: " + origen);
         }
 
         StringBuilder contenido = new StringBuilder();
-        
+
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -33,7 +34,7 @@ public class Leer {
 
     public int contarPalabras(String origen) throws IOException {
         File file = new File(origen);
-        
+
         if (!file.exists()) {
             throw new IOException("El archivo no existe: " + origen);
         }
@@ -42,11 +43,23 @@ public class Leer {
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String linea;
+            int contadorEspacios = 0;
+
             while ((linea = br.readLine()) != null) {
+                // Contar espacios en la línea
+                for (char c : linea.toCharArray()) {
+                    if (c == ' ') {
+                        contadorEspacios++;
+                    }
+                }
+
                 // Dividir la línea en palabras y contar
-                String[] palabras = linea.trim().split("\\s+"); // Usar expresión regular para dividir por espacios
+                String[] palabras = linea.trim().split("\\s+");
                 contadorPalabras += palabras.length;
             }
+
+            System.out.println("Número de palabras: " + contadorPalabras);
+            System.out.println("Número de espacios: " + contadorEspacios);
         } catch (IOException e) {
             throw new IOException("Error al leer el archivo: " + origen, e);
         }
@@ -56,7 +69,7 @@ public class Leer {
 
     public int contarCaracter(String origen, char caracter) throws IOException {
         File file = new File(origen);
-        
+
         if (!file.exists()) {
             throw new IOException("El archivo no existe: " + origen);
         }
@@ -79,4 +92,3 @@ public class Leer {
         return contadorCaracter;  // Retornar el conteo total del carácter
     }
 }
-

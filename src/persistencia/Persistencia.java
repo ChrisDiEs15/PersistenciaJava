@@ -13,17 +13,27 @@ public class Persistencia {
 
      public static void main(String[] args) {
         Leer lector = new Leer();
+        String archivoOrigen="/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_origen.txt";
+        String archivoDestino="/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_destino.txt";
         
         try {
-            String contenido = lector.leer("/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_origen.txt");
-            int totalPalabras = lector.contarPalabras("/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_destino.txt");
+            String contenido = lector.leer(archivoOrigen);
+            int totalPalabras = lector.contarPalabras(archivoOrigen);
             char caracterBuscado = 'a';  // Cambia este valor al carácter que deseas buscar
-            int totalCaracteres = lector.contarCaracter("/home/cdiaz/NetBeansProjects/Persistencia/src/persistencia/archivo_origen.txt", caracterBuscado);
-
-            System.out.println("Contenido del archivo:");
+            
+            int totalCaracteres = lector.contarCaracter(archivoOrigen, caracterBuscado);
+            Clonar clonar = new Clonar();
+            clonar.clonar(archivoOrigen, archivoDestino);
+            String contenidoDestino=lector.leer(archivoDestino);
+            
+            System.out.println("Contenido del archivo de origen:");
             System.out.println(contenido);
             System.out.println("Total de palabras: " + totalPalabras);
             System.out.println("Apariciones del carácter '" + caracterBuscado + "': " + totalCaracteres);
+            
+            System.out.println("contenido del archivo de destino ");
+            System.out.println(contenidoDestino);
+            
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

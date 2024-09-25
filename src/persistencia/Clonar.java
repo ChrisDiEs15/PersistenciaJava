@@ -27,7 +27,6 @@ public class Clonar {
             System.out.println("Archivo clonado exitosamente.");
         } catch (IOException e) {
             System.err.println("Error durante la clonación: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }
